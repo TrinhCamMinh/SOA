@@ -25,11 +25,13 @@ app.use('/', customerRoutes);
 app.use('/chef', chefRoutes);
 app.use('/manager', managerRoutes);
 app.use('/waiter', waiterRoutes);
+
 app.use('/', (req, res) => {
     res.render('404');
 });
 
 //* Start server
 app.listen(process.env.PORT, () => {
-    console.log(`Listening on PORT ${process.env.PORT}...`);
+    console.log(`listening on PORT ${process.env.PORT}...`);
+    console.log(`http://localhost:3000/`);
 });
