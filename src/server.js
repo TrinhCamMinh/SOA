@@ -1,9 +1,10 @@
 require('dotenv').config();
 const { engine } = require('express-handlebars');
-const express = require('express');
 const path = require('path');
+const express = require('express');
 const { chefRoutes, customerRoutes, managerRoutes, waiterRoutes } = require('./resources/routes');
 const app = express();
+const mongoose = require('mongoose');
 
 //* middleware
 app.use(express.json());
@@ -14,7 +15,6 @@ app.engine(
     'hbs',
     engine({
         extname: 'hbs',
-        
     }),
 );
 
@@ -28,11 +28,19 @@ app.use('/manager', managerRoutes);
 app.use('/waiter', waiterRoutes);
 
 app.use('/', (req, res) => {
-    res.render('404');
+    res.render('404', { layout: 'none' });
 });
 
 //* Start server
-app.listen(process.env.PORT, () => {
-    console.log(`listening on PORT ${process.env.PORT}...`);
-    console.log(`http://localhost:3000/`);
-});
+mongoose.set('strictQuery', true);
+mongoose
+    .connect(process.env.MONGODB_URL)
+    .then(() => {
+        app.listen(process.env.PORT, () => {
+            console.log(`listening on PORT ${process.env.PORT}...`);
+            console.log(`http://localhost:3000/`);
+        });
+    })
+    .catch((error) => {
+        console.log(error);
+    });
