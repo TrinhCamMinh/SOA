@@ -14,7 +14,6 @@ app.engine(
     'hbs',
     engine({
         extname: 'hbs',
-        
     }),
 );
 
@@ -28,7 +27,7 @@ app.use('/manager', managerRoutes);
 app.use('/waiter', waiterRoutes);
 
 app.use('/', (req, res) => {
-    res.render('404');
+    res.render('404', { layout: 'layout404' });
 });
 
 //* Start server
