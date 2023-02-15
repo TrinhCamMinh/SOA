@@ -64,3 +64,85 @@
     transition: 0s;
     transform: translate(0, 5%);
 }
+
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 90vh;
+    background-color: rgb(31, 29, 29);
+}
+
+.card {
+    position: relative;
+    background-color: black;
+    width: 450px;
+    height: 200px;
+    border-radius: 10px;
+}
+
+.card .image>img {
+    position: absolute;
+    height: 200px;
+    width: 150px;
+    border-radius: 10px;
+}
+
+.card .info .nameFood {
+    position: absolute;
+    font-size: 13px;
+    color: white;
+    padding-left: 160px;
+    padding-top: 50px;
+}
+
+.card .info .description {
+    position: absolute;
+    color: bisque;
+    padding-left: 160px;
+    padding-right: 60px;
+    padding-top: 100px;
+}
+
+.price {
+    position: absolute;
+    font-size: 25px;
+    padding-left: 160px;
+    padding-bottom: 100px;
+    color: yellow;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-weight: 750;
+}
+
+.cicle {
+    position: absolute;
+    width: 40px;
+    height: 40px;
+    margin-left: 405px;
+    margin-top: 150px;
+    background-color: rgb(214, 65, 65);
+    border-radius: 50%;
+    float: left;
+    -webkit-shape-outside: circle();
+    shape-outside: circle();
+}
+
+.plus {
+    position: absolute;
+    background: white;
+    height: 25px;
+    position: relative;
+    width: 5px;
+    left: 17px;
+    top: 8px;
+}
+
+.plus:after {
+    background: white;
+    content: "";
+    height: 5px;
+    left: -10px;
+    position: absolute;
+    top: 10px;
+    width: 25px;
+}
