@@ -48,6 +48,7 @@ mongoose
     .connect(process.env.MONGODB_URL)
     .then(() => {
         app.listen(process.env.PORT, () => {
+            console.log(`connect database successfully`);
             console.log(`listening on PORT ${process.env.PORT}...`);
             console.log(`http://localhost:3000/`);
         });
