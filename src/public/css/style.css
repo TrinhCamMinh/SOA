@@ -26,7 +26,7 @@
     bottom: 0;
     right: 0;
     z-index: -99999;
-    transition: all .4s;
+    transition: all 0.4s;
 }
 
 .button-86::before {
@@ -75,7 +75,7 @@
     margin-top: 10px;
 }
 
-.foodCard .image>img {
+.foodCard .image > img {
     position: absolute;
     height: 150px;
     width: 170px;
@@ -134,12 +134,36 @@
 
 .plus:after {
     background: white;
-    content: "";
+    content: '';
     height: 4px;
     left: -7px;
     position: absolute;
     top: 7px;
     width: 18px;
+}
+
+.emoji-404 {
+    position: relative;
+    animation: myMove 2.5s infinite;
+}
+
+@keyframes myMove {
+    33% {
+        top: 0px;
+    }
+    66% {
+        top: 20px;
+    }
+    100% {
+        top: 0px;
+    }
+}
+
+.app {
+    min-height: 100vh;
+    margin: 0;
+    display: grid;
+    grid-template-rows: auto 1fr auto;
 }
 
 .tableCard {
