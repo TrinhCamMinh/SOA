@@ -3450,6 +3450,14 @@ textarea.form-control.is-invalid {
   position: sticky;
 }
 
+.bottom-0 {
+  bottom: 0px;
+}
+
+.left-0 {
+  left: 0px;
+}
+
 .m-auto {
   margin: auto;
 }
@@ -3463,12 +3471,16 @@ textarea.form-control.is-invalid {
   margin-bottom: 1rem;
 }
 
-.mr-12 {
-  margin-right: 3rem;
+.ml-\[100px\] {
+  margin-left: 100px;
 }
 
-.mr-3 {
-  margin-right: 0.75rem;
+.ml-\[50px\] {
+  margin-left: 50px;
+}
+
+.mr-12 {
+  margin-right: 3rem;
 }
 
 .mr-4 {
@@ -3477,58 +3489,6 @@ textarea.form-control.is-invalid {
 
 .mr-6 {
   margin-right: 1.5rem;
-}
-
-.ml-\[20px\] {
-  margin-left: 20px;
-}
-
-.ml-\[50px\] {
-  margin-left: 50px;
-}
-
-.ml-\[100px\] {
-  margin-left: 100px;
-}
-
-.mr-\[100px\] {
-  margin-right: 100px;
-}
-
-.mt-\[5px\] {
-  margin-top: 5px;
-}
-
-.mt-\[6px\] {
-  margin-top: 6px;
-}
-
-.mt-\[7px\] {
-  margin-top: 7px;
-}
-
-.mt-\[8px\] {
-  margin-top: 8px;
-}
-
-.ml-auto {
-  margin-left: auto;
-}
-
-.mr-auto {
-  margin-right: auto;
-}
-
-.ml-\[70px\] {
-  margin-left: 70px;
-}
-
-.mr-\[40px\] {
-  margin-right: 40px;
-}
-
-.mr-\[50px\] {
-  margin-right: 50px;
 }
 
 .mr-\[70px\] {
@@ -3571,40 +3531,20 @@ textarea.form-control.is-invalid {
   display: none;
 }
 
-.h-full {
-  height: 100%;
+.h-\[100px\] {
+  height: 100px;
 }
 
 .h-\[50px\] {
   height: 50px;
 }
 
-.h-\[70px\] {
-  height: 70px;
-}
-
-.h-\[20\%\] {
-  height: 20%;
-}
-
-.h-\[10px\] {
-  height: 10px;
-}
-
-.h-\[40px\] {
-  height: 40px;
-}
-
-.h-\[100px\] {
-  height: 100px;
+.h-full {
+  height: 100%;
 }
 
 .h-screen {
   height: 100vh;
-}
-
-.w-full {
-  width: 100%;
 }
 
 .w-2 {
@@ -3627,16 +3567,12 @@ textarea.form-control.is-invalid {
   width: 1rem;
 }
 
-.w-\[10px\] {
-  width: 10px;
-}
-
-.w-\[40px\] {
-  width: 40px;
-}
-
 .w-\[50px\] {
   width: 50px;
+}
+
+.w-full {
+  width: 100%;
 }
 
 .transform {
@@ -3692,6 +3628,11 @@ textarea.form-control.is-invalid {
   border-color: rgb(209 213 219 / var(--tw-border-opacity));
 }
 
+.bg-\[\#E1EEDD\] {
+  --tw-bg-opacity: 1;
+  background-color: rgb(225 238 221 / var(--tw-bg-opacity));
+}
+
 .bg-gray-100 {
   --tw-bg-opacity: 1;
   background-color: rgb(243 244 246 / var(--tw-bg-opacity));
@@ -3702,26 +3643,12 @@ textarea.form-control.is-invalid {
   background-color: rgb(229 231 235 / var(--tw-bg-opacity));
 }
 
-.bg-red-600 {
-  --tw-bg-opacity: 1;
-  background-color: rgb(220 38 38 / var(--tw-bg-opacity));
-}
-
-.bg-\[E1EEDD\] {
-  background-color: E1EEDD;
-}
-
-.bg-\[\#E1EEDD\] {
-  --tw-bg-opacity: 1;
-  background-color: rgb(225 238 221 / var(--tw-bg-opacity));
+.p-3 {
+  padding: 0.75rem;
 }
 
 .p-6 {
   padding: 1.5rem;
-}
-
-.p-3 {
-  padding: 0.75rem;
 }
 
 .py-10 {
@@ -3729,54 +3656,16 @@ textarea.form-control.is-invalid {
   padding-bottom: 2.5rem;
 }
 
-.pl-10 {
-  padding-left: 2.5rem;
-}
-
-.pl-3 {
-  padding-left: 0.75rem;
-}
-
-.pl-\[5px\] {
-  padding-left: 5px;
-}
-
-.pl-\[50px\] {
-  padding-left: 50px;
-}
-
 .pl-\[6px\] {
   padding-left: 6px;
-}
-
-.pt-\[5px\] {
-  padding-top: 5px;
-}
-
-.pt-\[7px\] {
-  padding-top: 7px;
 }
 
 .text-center {
   text-align: center;
 }
 
-.align-middle {
-  vertical-align: middle;
-}
-
 .font-mono {
   font-family: ui-monospace, monospace;
-}
-
-.text-2xl {
-  font-size: 1.5rem;
-  line-height: 2rem;
-}
-
-.text-xl {
-  font-size: 1.25rem;
-  line-height: 1.75rem;
 }
 
 .text-6xl {
@@ -3784,12 +3673,17 @@ textarea.form-control.is-invalid {
   line-height: 1;
 }
 
-.font-semibold {
-  font-weight: 600;
+.text-xl {
+  font-size: 1.25rem;
+  line-height: 1.75rem;
 }
 
 .font-medium {
   font-weight: 500;
+}
+
+.font-semibold {
+  font-weight: 600;
 }
 
 .uppercase {
@@ -3800,14 +3694,14 @@ textarea.form-control.is-invalid {
   letter-spacing: 0.1em;
 }
 
-.text-gray-600 {
-  --tw-text-opacity: 1;
-  color: rgb(75 85 99 / var(--tw-text-opacity));
-}
-
 .text-gray-500 {
   --tw-text-opacity: 1;
   color: rgb(107 114 128 / var(--tw-text-opacity));
+}
+
+.text-gray-600 {
+  --tw-text-opacity: 1;
+  color: rgb(75 85 99 / var(--tw-text-opacity));
 }
 
 .outline {
@@ -3846,10 +3740,6 @@ textarea.form-control.is-invalid {
 @media (min-width: 1024px) {
   .lg\:block {
     display: block;
-  }
-
-  .lg\:grid-cols-4 {
-    grid-template-columns: repeat(4, minmax(0, 1fr));
   }
 
   .lg\:grid-cols-2 {
