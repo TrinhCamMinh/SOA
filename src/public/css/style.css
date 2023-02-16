@@ -415,10 +415,4 @@ input[type='submit'] {
 
 input[type='submit']:active {
     opacity: 0.8;
-<<<<<<< HEAD
-    position: absolute;
-    top: 7px;
-    width: 18px;
-=======
->>>>>>> 3c682cec8f65631e5b0f6e0789c4a928d9185144
 }
