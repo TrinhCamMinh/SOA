@@ -26,7 +26,7 @@
     bottom: 0;
     right: 0;
     z-index: -99999;
-    transition: all .4s;
+    transition: all 0.4s;
 }
 
 .button-86::before {
@@ -75,7 +75,7 @@
     margin-top: 10px;
 }
 
-.foodCard .image>img {
+.foodCard .image > img {
     position: absolute;
     height: 150px;
     width: 170px;
@@ -127,10 +127,11 @@
     position: absolute;
     background: white;
     height: 18px;
-    position: relative;
+}
+
 .plus:after {
     background: white;
-    content: "";
+    content: '';
     height: 4px;
     left: -7px;
     position: absolute;
@@ -164,7 +165,7 @@
     padding-top: 10px;
 }
 
-.checkbox-wrapper-54 input[type="checkbox"] {
+.checkbox-wrapper-54 input[type='checkbox'] {
     visibility: hidden;
     display: none;
 }
@@ -195,13 +196,13 @@
     right: 0;
     bottom: 0;
     background-color: #f4f4f5;
-    transition: .4s;
+    transition: 0.4s;
     border-radius: 30px;
 }
 
 .checkbox-wrapper-54 .slider:before {
     position: absolute;
-    content: "";
+    content: '';
     height: var(--size-of-icon, 1.4em);
     width: var(--size-of-icon, 1.4em);
     border-radius: 20px;
@@ -209,15 +210,14 @@
     top: 50%;
     transform: translateY(-50%);
     background: linear-gradient(40deg, #ff0080, #ff8c00 70%);
-    ;
-    transition: .4s;
+    transition: 0.4s;
 }
 
-.checkbox-wrapper-54 input:checked+.slider {
+.checkbox-wrapper-54 input:checked + .slider {
     background-color: #303136;
 }
 
-.checkbox-wrapper-54 input:checked+.slider:before {
+.checkbox-wrapper-54 input:checked + .slider:before {
     left: calc(100% - (var(--size-of-icon, 1.4em) + var(--slider-offset, 0.3em)));
     background: #303136;
     box-shadow: inset -3px -2px 5px -2px #8983f7, inset -10px -4px 0 0 #a3dafb;
@@ -331,8 +331,8 @@
     transition: 0.5s;
 }
 
-.inputBox input:valid~span,
-.inputBox input:focus~span {
+.inputBox input:valid ~ span,
+.inputBox input:focus ~ span {
     color: #45f3ff;
     transform: translateX(0px) translateY(-34px);
     font-size: 0.75em;
@@ -351,10 +351,9 @@
     z-index: 9;
 }
 
-.inputBox input:valid~i,
-.inputBox input:focus~i {
+.inputBox input:valid ~ i,
+.inputBox input:focus ~ i {
     height: 44px;
-
 }
 
 .links {
@@ -375,7 +374,7 @@
     color: #45f3ff;
 }
 
-input[type="submit"] {
+input[type='submit'] {
     border: none;
     outline: none;
     background: #45f3ff;
@@ -387,7 +386,7 @@ input[type="submit"] {
     cursor: pointer;
 }
 
-input[type="submit"]:active {
+input[type='submit']:active {
     opacity: 0.8;
     position: absolute;
     top: 7px;
