@@ -1,2 +1,13 @@
-<h1>Hello World</h1>
 <kbd>This is home page of Manager</kbd>
+{{#each data as |item|}}
+    <h2>{{item._id}}</h2>
+    <i>{{item.quantity}}</i>
+    <i>{{item.price}}</i>
+    <kbd>{{item.table}}</kbd>
+    <code>{{item.createdAt}}</code>
+    <ul>
+        {{#each this.name as |food|}}
+            <li>{{food}}</li>
+        {{/each}}
+    </ul>
+{{/each}}

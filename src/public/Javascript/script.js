@@ -1,8 +1,8 @@
 $(document).ready(() => {
-    //! Javascript here
 
     setInterval(displayClock, 100);
 
+    //* Display time in header
     function displayClock() {
         //*Get real time to display on header
         let time = new Date();
