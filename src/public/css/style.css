@@ -127,7 +127,9 @@
     position: absolute;
     background: white;
     height: 18px;
-    position: relative;
+    width: 4px;
+    left: 13px;
+    top: 6px;
 }
 
 .plus:after {
@@ -391,7 +393,4 @@ input[type="submit"] {
 
 input[type="submit"]:active {
     opacity: 0.8;
-    position: absolute;
-    top: 7px;
-    width: 18px;
 }
