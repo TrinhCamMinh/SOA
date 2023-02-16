@@ -15,6 +15,10 @@ const foodSchema = new Schema(
                 message: (props) => `${props.value} is not a valid food name!`,
             },
         },
+        images: {
+            type: String,
+            required: [true, 'Food must have image'],
+        },
         type: {
             type: String,
             required: [true, 'Food must have type of food'],
@@ -31,6 +35,10 @@ const foodSchema = new Schema(
                 },
                 message: (props) => `${props.value} is not a valid price`,
             },
+        },
+        description: {
+            type: String,
+            required: true,
         },
         ingredients: {
             type: [String],
