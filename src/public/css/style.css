@@ -127,6 +127,9 @@
     position: absolute;
     background: white;
     height: 18px;
+    width: 4px;
+    left: 13px;
+    top: 6px;
 }
 
 .plus:after {
@@ -137,6 +140,30 @@
     position: absolute;
     top: 7px;
     width: 18px;
+}
+
+.emoji-404 {
+    position: relative;
+    animation: myMove 2.5s infinite;
+}
+
+@keyframes myMove {
+    33% {
+        top: 0px;
+    }
+    66% {
+        top: 20px;
+    }
+    100% {
+        top: 0px;
+    }
+}
+
+.app {
+    min-height: 100vh;
+    margin: 0;
+    display: grid;
+    grid-template-rows: auto 1fr auto;
 }
 
 .tableCard {
@@ -388,7 +415,10 @@ input[type='submit'] {
 
 input[type='submit']:active {
     opacity: 0.8;
+<<<<<<< HEAD
     position: absolute;
     top: 7px;
     width: 18px;
+=======
+>>>>>>> 3c682cec8f65631e5b0f6e0789c4a928d9185144
 }
