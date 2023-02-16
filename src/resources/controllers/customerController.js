@@ -1,5 +1,8 @@
+const { foodModel } = require('../models/');
+
 const homePage = async (req, res) => {
-    res.render('./Customer/home');
+    const data = await foodModel.find({}).lean();
+    res.render('./Customer/home', { data });
 };
 
 module.exports = {

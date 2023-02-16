@@ -8,21 +8,27 @@ const billSchema = new Schema(
             required: [true, 'Bill must has at least one food'],
             validate: {
                 validator: function (value) {
-                    return value < 0;
+                    return value > 0;
                 },
             },
             message: (props) => `${props.value} is less than 0`,
         },
         name: {
-            type: String,
-            required: [true, 'Food must has a specific name'],
+            type: [String],
+            required: [true, 'Bill must include food'],
+            validate: {
+                validator: function (value) {
+                    return value.length >= 1;
+                },
+                message: () => `Please provide at least one food `,
+            },
         },
         price: {
             type: Number,
             required: [true, 'total price must be calculated'],
         },
         table: {
-            type: String,
+            type: Number,
             required: true,
         },
     },

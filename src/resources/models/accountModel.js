@@ -10,18 +10,19 @@ const accountsSchema = new Schema(
         email: {
             type: String,
             required: [true, 'Account must has an email'],
-            unique: [true, 'This email was in used'],
+            unique: true,
             validate: {
                 //* check email regex
                 validator: function (value) {
                     return value.match(/^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/);
                 },
+                message: (props) => `${props.value} is not a valid email`,
             },
         },
         password: {
             type: String,
             required: [true, 'Account must has password'],
-            unique: [true, 'This password was in used'],
+            unique: true,
         },
         position: {
             type: String,

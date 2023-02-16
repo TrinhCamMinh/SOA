@@ -9,7 +9,8 @@ const foodSchema = new Schema(
             unique: [true, 'Food name must be unique'],
             validate: {
                 validator: function (value) {
-                    return typeof value == Number;
+                    //* if this return true then pass the validator
+                    return typeof value != Number;
                 },
                 message: (props) => `${props.value} is not a valid food name!`,
             },
@@ -25,7 +26,8 @@ const foodSchema = new Schema(
             default: 0,
             validate: {
                 validator: function (value) {
-                    return value < 0;
+                    //* if this return true then pass the validator
+                    return value > 0;
                 },
                 message: (props) => `${props.value} is not a valid price`,
             },

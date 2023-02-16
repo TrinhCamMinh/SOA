@@ -3523,10 +3523,6 @@ textarea.form-control.is-invalid {
   display: none;
 }
 
-.h-full {
-  height: 100%;
-}
-
 .h-\[100px\] {
   height: 100px;
 }
@@ -3535,12 +3531,12 @@ textarea.form-control.is-invalid {
   height: 50px;
 }
 
-.h-screen {
-  height: 100vh;
+.h-full {
+  height: 100%;
 }
 
-.w-full {
-  width: 100%;
+.h-screen {
+  height: 100vh;
 }
 
 .w-2 {
@@ -3565,6 +3561,10 @@ textarea.form-control.is-invalid {
 
 .w-\[50px\] {
   width: 50px;
+}
+
+.w-full {
+  width: 100%;
 }
 
 .transform {
