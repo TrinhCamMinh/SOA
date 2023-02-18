@@ -23,6 +23,15 @@ app.engine(
     'hbs',
     engine({
         extname: 'hbs',
+        helpers: {
+            //* increasing index by 1
+            sum: (index) => index + 1,
+
+            // * formatting currency to dollar
+            formatCurrency: (price) => {
+                return price.toString().replace(/(\d)(?=(\d\d\d)+(?!\d))/g, '$1,');
+            },
+        },
     }),
 );
 
