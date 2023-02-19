@@ -1,11 +1,11 @@
-{{> foodCard}}
+{{!-- {{> foodCard}}
 {{> modal}}
 {{> button}}
 {{> foodCard}}
 {{> tableCard }}
-{{> loginForm }}
+{{> loginForm }} --}}
 {{!-- {{> foodCard}} --}}
-<section>
+{{!-- <section>
     {{#each data as |item|}}
         <div>
             <h1>{{item.name}}</h1>
@@ -18,4 +18,11 @@
             </ul>
         </div>
     {{/each}}
-</section>
+</section> --}}
+
+<div class='w-[300px] h-[500px] border-collapse bg-red-500'>
+    <div class='w-full h-[50px] bg-orange-400'>
+        <p>Ordering</p>
+    </div>
+    <div class=""> {{> orderingFood}} </div>
+</div>
