@@ -1,5 +1,5 @@
 {{#each data as |item|}}
-{{> foodCard name=item.name image=item.images price=item.price description=item.description}}
+    {{> foodCard name=item.name image=item.images price=item.price description=item.description}}
 {{/each}}
 
 {{> button class='payment' content='Payment'}}
@@ -9,4 +9,3 @@
 {{> button class='order' content='Order'}}
 
 {{>sideBar}}
-{{>tableCard}}
