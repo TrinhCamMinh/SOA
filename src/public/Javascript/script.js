@@ -50,18 +50,39 @@ $(document).ready(() => {
     //* Add food ordered to session storage
     const orders = new Array();
     const prices = new Array();
+    const ingredientsStore = new Array();
     $('.circle').each((index, item) => {
         $(item).click(function () {
             //* take the nameFood class which is the last sibling to .circle
             //* similar to price
-            const nameFood = $(this).prevAll()[2];
+            const name = $(this).prevAll()[2];
             const price = $(this).prevAll()[0];
+            const ingredients = $(this).nextAll();
 
+            //* push food ordered to order array to take data from chef page
             orders.push({
-                name: $.trim($(nameFood).text()),
+                name: $.trim($(name).text()),
                 price: $.trim($(price).text()).split(' ')[1], //* split $ [price] into two elements
             });
             console.log(orders);
+
+            //* push ingredients in each foods to ingredientsStore array to update ingredients's quantity
+            ingredients.each((index, item) => {
+                ingredientsStore.push($.trim($(item).text()));
+            });
+        });
+    });
+
+    $('.order').click(function () {
+        const fetchAPI = async (name) => {
+            fetch(`http://localhost:3000/ingredients/?name=${name}&type=minus`, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+            });
+        };
+
+        ingredientsStore.forEach((item) => {
+            fetchAPI(item);
         });
     });
 
@@ -70,27 +91,52 @@ $(document).ready(() => {
         return total + num;
     };
 
+    //* calculating total price for user
     $('.payment').click(function () {
         sessionStorage.setItem('foods', JSON.stringify(orders));
         const foodObject = JSON.parse(sessionStorage.getItem('foods'));
         foodObject.map((item) => {
             //* convert price (string) to price (Number)
-            prices.push(Number(item.price));
+            prices.push(Number(item.price.replace(',', '')));
         });
-        // console.log(prices.length);
-        // console.log(prices.reduce(sum, 0));
+
+        const total = prices.reduce(sum, 0);
+        console.log(prices.length);
+        console.log(total);
+
+        const names = new Array();
+
+        orders.forEach((item) => {
+            names.push(item.name);
+        });
+
+        const fetchAPI = async (quantity, name, price, table = 1) => {
+            fetch('http://localhost:3000/manager/bill', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ quantity, name, price, table }),
+            });
+        };
+
+        //* call API for payment then clear all the data in array
+        fetchAPI(prices.length, names, total);
+        orders.length = 0;
+        prices.length = 0;
+        names.length = 0;
+        console.log(orders, prices, names);
     });
 
     //* remove food from session storage (incase user want to remove from order list)
     $('.minus_button').each((index, item) => {
         $(item).click(function () {
             const nameFood = $(this).prevAll()[3];
-            orders.map((item, index) => {
+            orders.forEach((item, index) => {
                 if (item.name === $.trim($(nameFood).text())) {
                     //* remove item from order array
                     orders.splice(index, 1);
                 }
             });
+            //TODO minus ingredient's quantity here
         });
     });
 });

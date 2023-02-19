@@ -4,10 +4,11 @@
     <i>{{item.quantity}}</i>
     <i>{{item.price}}</i>
     <kbd>{{item.table}}</kbd>
-    <code>{{item.createdAt}}</code>
+    <code>{{formatDate item.createdAt}}</code>
     <ul>
         {{#each this.name as |food|}}
             <li>{{food}}</li>
         {{/each}}
     </ul>
+    <br>
 {{/each}}
