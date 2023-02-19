@@ -73,6 +73,7 @@
     border-radius: 10px;
     margin-left: 10px;
     margin-top: 10px;
+    overflow: hidden;
 }
 
 .foodCard .image>img {
@@ -95,6 +96,7 @@
     position: absolute;
     color: bisque;
     font-size: 10px;
+    max-height: 1.2rem;
     padding-left: 190px;
     padding-top: 60px;
     padding-right: 17px;
@@ -104,7 +106,7 @@
     position: absolute;
     font-size: 25px;
     padding-left: 190px;
-    padding-top: 104px;
+    padding-top: 104px; 
     color: yellow;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     font-weight: 750;
