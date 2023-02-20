@@ -1,2 +1,7 @@
-<h1>Hello World</h1>
-<kbd>This is home page of Chef</kbd>
+{{!-- {{#each orders as |item|}}
+    <strong>{{item.name}}</strong>
+    <strong>{{item.price}}</strong>
+{{/each}} --}}
+
+{{> table content=orders}}
+{{> table content=foods}}

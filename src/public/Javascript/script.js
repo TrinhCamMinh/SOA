@@ -74,6 +74,14 @@ $(document).ready(() => {
     });
 
     $('.order').click(function () {
+        const addCart = async (name, price) => {
+            fetch('http://localhost:3000/carts', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ name, price }),
+            });
+        };
+
         const fetchAPI = async (name) => {
             fetch(`http://localhost:3000/ingredients/?name=${name}&type=minus`, {
                 method: 'POST',
@@ -81,6 +89,12 @@ $(document).ready(() => {
             });
         };
 
+        //* add order to cart database
+        orders.forEach((item) => {
+            addCart(item.name, Number(item.price.replace(',', '')));
+        });
+
+        //* update ingredients's quantity in database
         ingredientsStore.forEach((item) => {
             fetchAPI(item);
         });
