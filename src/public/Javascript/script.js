@@ -28,4 +28,25 @@ $(document).ready(() => {
 
         document.getElementById('Clock').innerHTML = hrs + ':' + min + ' ' + en;
     }
+
+    //* Button + to increase or decrease quantity of food
+
+    function increaseOrDecreaseItems() {
+        let plus = document.getElementById('plus'),
+            minus = document.getElementById('minus'),
+            qty = document.getElementById('qty'),
+            num = 1;
+
+        plus.addEventListener('click', () => {
+            num++;
+            qty.innerText = num;
+            console.log('num');
+        });
+
+        minus.addEventListener('click', () => {
+            num--;
+            qty.innerText = num;
+        });
+    }
+    increaseOrDecreaseItems();
 });
