@@ -1,3 +1,12 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@500&display=swap');
+* {
+    box-sizing: border-box;
+    padding: 0;
+    margin: 0;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 500;
+}
+
 .button-86 {
     all: unset;
     width: 100px;
@@ -76,7 +85,7 @@
     overflow: hidden;
 }
 
-.foodCard .image>img {
+.foodCard .image > img {
     position: absolute;
     height: 150px;
     width: 170px;
@@ -106,7 +115,7 @@
     position: absolute;
     font-size: 25px;
     padding-left: 190px;
-    padding-top: 104px; 
+    padding-top: 104px;
     color: yellow;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     font-weight: 750;
@@ -218,6 +227,12 @@
 .checkbox-wrapper-20 .switch .slider {
     position: relative;
     display: inline-block;
+}
+
+/* The slider */
+
+.checkbox-wrapper-54 .slider {
+    position: absolute;
     height: var(--slider-height);
     width: var(--slider-width);
     border-radius: var(--slider-height);
@@ -235,7 +250,7 @@
     width: var(--switch-height);
     height: var(--switch-width);
     border-radius: 50%;
-    box-shadow: 0px 2px 2px rgba(0, 0, 0, .2);
+    box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.2);
     content: '';
     transition: var(--transition);
 }
@@ -248,19 +263,19 @@
     display: none;
 }
 
-.checkbox-wrapper-20 .switch .input~.label {
+.checkbox-wrapper-20 .switch .input ~ .label {
     margin-left: var(--slider-height);
 }
 
-.checkbox-wrapper-20 .switch .input:checked~.slider:after {
+.checkbox-wrapper-20 .switch .input:checked ~ .slider:after {
     left: calc(var(--slider-width) - var(--switch-width) + var(--switch-shift));
 }
 
-.checkbox-wrapper-20 .switch .input:checked~.slider {
+.checkbox-wrapper-20 .switch .input:checked ~ .slider {
     background: var(--slider-on-color);
 }
 
-.checkbox-wrapper-20 .switch .input:checked~.slider:after {
+.checkbox-wrapper-20 .switch .input:checked ~ .slider:after {
     background: var(--switch-on-color);
 }
 
@@ -316,7 +331,6 @@
     0% {
         transform: rotate(0deg);
     }
-
     100% {
         transform: rotate(360deg);
     }
@@ -372,8 +386,8 @@
     transition: 0.5s;
 }
 
-.inputBox input:valid~span,
-.inputBox input:focus~span {
+.inputBox input:valid ~ span,
+.inputBox input:focus ~ span {
     color: #45f3ff;
     transform: translateX(0px) translateY(-34px);
     font-size: 0.75em;
@@ -392,8 +406,8 @@
     z-index: 9;
 }
 
-.inputBox input:valid~i,
-.inputBox input:focus~i {
+.inputBox input:valid ~ i,
+.inputBox input:focus ~ i {
     height: 44px;
 }
 
@@ -482,4 +496,66 @@ input[type='submit']:active {
     transition: 0.5s;
     letter-spacing: 4px;
     text-transform: uppercase;
+}
+
+.checkbox-wrapper-54 input[type='checkbox'] {
+    visibility: hidden;
+    display: none;
+}
+
+.checkbox-wrapper-54 *,
+.checkbox-wrapper-54 ::after,
+.checkbox-wrapper-54 ::before {
+    box-sizing: border-box;
+}
+
+/* The switch - the box around the slider */
+.checkbox-wrapper-54 .switch {
+    --width-of-switch: 3.5em;
+    --height-of-switch: 2em;
+    /* size of sliding icon -- sun and moon */
+    --size-of-icon: 1.4em;
+    /* it is like a inline-padding of switch */
+    --slider-offset: 0.3em;
+    position: relative;
+    width: var(--width-of-switch);
+    height: var(--height-of-switch);
+    display: inline-block;
+}
+
+/* The slider */
+.checkbox-wrapper-54 .slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #f4f4f5;
+    transition: 0.4s;
+    border-radius: 30px;
+}
+
+.checkbox-wrapper-54 .slider:before {
+    position: absolute;
+    content: '';
+    height: var(--size-of-icon, 1.4em);
+    width: var(--size-of-icon, 1.4em);
+    border-radius: 20px;
+    left: var(--slider-offset, 0.3em);
+    top: 50%;
+    transform: translateY(-50%);
+    background: linear-gradient(40deg, #ff0080, #ff8c00 70%);
+    transition: 0.4s;
+}
+
+.checkbox-wrapper-54 input:checked + .slider {
+    background-color: #303136;
+}
+
+.checkbox-wrapper-54 input:checked + .slider:before {
+    left: calc(100% - (var(--size-of-icon, 1.4em) + var(--slider-offset, 0.3em)));
+    background: #303136;
+    /* change the value of second inset in box-shadow to change the angle and direction of the moon  */
+    box-shadow: inset -3px -2px 5px -2px #8983f7, inset -10px -4px 0 0 #a3dafb;
 }
