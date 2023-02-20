@@ -29,6 +29,27 @@ $(document).ready(() => {
         document.getElementById('Clock').innerHTML = hrs + ':' + min + ' ' + en;
     }
 
+    //* Button + to increase or decrease quantity of food
+
+    function increaseOrDecreaseItems() {
+        let plus = document.getElementById('plus'),
+            minus = document.getElementById('minus'),
+            qty = document.getElementById('qty'),
+            num = 1;
+
+        plus.addEventListener('click', () => {
+            num++;
+            qty.innerText = num;
+            console.log('num');
+        });
+
+        minus.addEventListener('click', () => {
+            num--;
+            qty.innerText = num;
+        });
+    }
+    increaseOrDecreaseItems();
+
     //* Change table's color and text content base on status
     $('.slider').each((index, item) => {
         $(item).click(function () {
@@ -74,6 +95,14 @@ $(document).ready(() => {
     });
 
     $('.order').click(function () {
+        const addCart = async (name, price) => {
+            fetch('http://localhost:3000/carts', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ name, price }),
+            });
+        };
+
         const fetchAPI = async (name) => {
             fetch(`http://localhost:3000/ingredients/?name=${name}&type=minus`, {
                 method: 'POST',
@@ -81,6 +110,12 @@ $(document).ready(() => {
             });
         };
 
+        //* add order to cart database
+        orders.forEach((item) => {
+            addCart(item.name, Number(item.price.replace(',', '')));
+        });
+
+        //* update ingredients's quantity in database
         ingredientsStore.forEach((item) => {
             fetchAPI(item);
         });

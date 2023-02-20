@@ -10,6 +10,7 @@ const {
     accountRoutes,
     historyRoutes,
     ingredientsRoutes,
+    cartRoutes,
 } = require('./resources/routes');
 const app = express();
 const mongoose = require('mongoose');
@@ -51,6 +52,7 @@ app.use('/waiter', waiterRoutes);
 app.use('/account', accountRoutes);
 app.use('/history', historyRoutes);
 app.use('/ingredients', ingredientsRoutes);
+app.use('/carts', cartRoutes);
 
 app.use('/', (req, res) => {
     res.render('404', { layout: 'layout404' });
