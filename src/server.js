@@ -23,6 +23,20 @@ app.engine(
     'hbs',
     engine({
         extname: 'hbs',
+        helpers: {
+            //* increasing index by 1 (default start with 0)
+            increaseIndexByOne: (index) => index + 1,
+
+            //* formatting currency to dollar
+            formatCurrency: (price) => {
+                return price.toString().replace(/(\d)(?=(\d\d\d)+(?!\d))/g, '$1,');
+            },
+
+            //* formatting date base on US style
+            formatDate: (date) => {
+                return new Intl.DateTimeFormat('en-us', { dateStyle: 'full', timeStyle: 'long' }).format(date);
+            },
+        },
     }),
 );
 
@@ -48,6 +62,7 @@ mongoose
     .connect(process.env.MONGODB_URL)
     .then(() => {
         app.listen(process.env.PORT, () => {
+            console.log(`connect database successfully`);
             console.log(`listening on PORT ${process.env.PORT}...`);
             console.log(`http://localhost:3000/`);
         });
