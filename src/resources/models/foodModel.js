@@ -41,7 +41,8 @@ const foodSchema = new Schema(
             required: true,
         },
         ingredients: {
-            type: [String],
+            type: [mongoose.SchemaTypes.ObjectId],
+            ref: 'Food',
             required: [true, 'Food must have ingredients'],
         },
     },

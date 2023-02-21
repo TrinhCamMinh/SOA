@@ -29,27 +29,6 @@ $(document).ready(() => {
         document.getElementById('Clock').innerHTML = hrs + ':' + min + ' ' + en;
     }
 
-    //* Button + to increase or decrease quantity of food
-
-    function increaseOrDecreaseItems() {
-        let plus = document.getElementById('plus'),
-            minus = document.getElementById('minus'),
-            qty = document.getElementById('qty'),
-            num = 1;
-
-        plus.addEventListener('click', () => {
-            num++;
-            qty.innerText = num;
-            console.log('num');
-        });
-
-        minus.addEventListener('click', () => {
-            num--;
-            qty.innerText = num;
-        });
-    }
-    increaseOrDecreaseItems();
-
     //* Change table's color and text content base on status
     $('.slider').each((index, item) => {
         $(item).click(function () {
@@ -171,7 +150,7 @@ $(document).ready(() => {
                     orders.splice(index, 1);
                 }
             });
-            //TODO minus ingredient's quantity here
+            //TODO increase ingredient's quantity here
         });
     });
 });

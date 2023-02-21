@@ -30,7 +30,7 @@ app.engine(
 
             //* formatting currency to dollar
             formatCurrency: (price) => {
-                return price.toString().replace(/(\d)(?=(\d\d\d)+(?!\d))/g, '$1,');
+                if (price) return price.toString().replace(/(\d)(?=(\d\d\d)+(?!\d))/g, '$1.') + ' $';
             },
 
             //* formatting date base on US style
