@@ -1,25 +1,3 @@
-{{!-- {{> foodCard}}
-{{> modal}}
-{{> button}}
-{{> foodCard}}
-{{> tableCard }}
-{{> loginForm }} --}}
-{{!-- {{> foodCard}} --}}
-{{!-- <section>
-    {{#each data as |item|}}
-        <div>
-            <h1>{{item.name}}</h1>
-            <small>{{item.price}}</small>
-            <kbd>{{item.type}}</kbd>
-            <ul>
-                {{#each this.ingredients as |ingredient|}}
-                    <li>{{ingredient}}</li>
-                {{/each}}
-            </ul>
-        </div>
-    {{/each}}
-</section> --}}
-
 {{!-- Content --}}
 <div class="w-full h-auto flex justify-between">
     {{!-- Left Sidebar --}}
@@ -28,11 +6,9 @@
     </div>
     {{!-- Menu --}}
     <div class="grid grid-cols-2 mr-auto pl-[50px] pt-[20px] ">
-        {{>foodCard}}
-        {{>foodCard}}
-        {{>foodCard}}
-        {{>foodCard}}
-
+        {{#each data as |item|}}
+            {{> foodCard name=item.name image=item.images price=item.price description=item.description}}
+        {{/each}}
     </div>
     {{!-- Right sideBar --}}
     <div class='flex flex-col justify-between w-[300px] h-[500px] border-collapse my-[20px] mr-[5px] bg-gray-100 drop-shadow-sm'>
@@ -57,13 +33,8 @@
         <div class="text-center pb-[5px]">
             <button type="button" class="inline-block px-6 py-2.5 bg-blue-600 text-white font-medium text-xs leading-tight uppercase rounded shadow-md hover:bg-blue-700 hover:shadow-lg focus:bg-blue-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-blue-800 active:shadow-lg transition duration-150 ease-in-out">Order</button>
         </div>
-        
     </div>
 </div>
-
-{{#each data as |item|}}
-    {{> foodCard name=item.name image=item.images price=item.price description=item.description}}
-{{/each}}
 
 {{> button class='payment' content='Payment'}}
 
