@@ -59,12 +59,44 @@ $(document).ready(() => {
             const price = $(this).prevAll()[0];
             const ingredients = $(this).nextAll();
 
+            const template = (name, price = 1) => {
+                return `
+                    <div>
+                        <div class='flex justify-start items-center px-[10px] py-[10px] w-full'>
+                            <button class='sidebar_right_minus'><i class='fa-solid fa-minus'></i></button>
+                            <span class='w-[50px] ml-[30px]' id='qty'>1</span>
+                            <span class=''>${name}</span>
+                            <span class='ml-auto'>${price}</span>
+                            <button class='sidebar_right_plus ml-auto'><i class='fa-solid fa-plus'></i></button>
+                        </div>
+                        <div class='flex justify-center'>
+                            <div class='relative mb-3 xl:w-96' data-te-input-wrapper-init>
+                                <input
+                                    type='text'
+                                    class='peer block min-h-[auto] w-full rounded border-0 bg-transparent py-[0.32rem] px-3 leading-[1.6] outline-none transition-all duration-200 ease-linear focus:placeholder:opacity-100 data-[te-input-state-active]:placeholder:opacity-100 motion-reduce:transition-none dark:text-neutral-200 dark:placeholder:text-neutral-200 [&:not([data-te-input-placeholder-active])]:placeholder:opacity-0'
+                                    id='exampleFormControlInputText'
+                                    placeholder='Example label'
+                                />
+                                <label
+                                    for='exampleFormControlInputText'
+                                    class='pointer-events-none absolute top-0 left-3 mb-0 max-w-[90%] origin-[0_0] truncate pt-[0.37rem] leading-[1.6] text-neutral-500 transition-all duration-200 ease-out peer-focus:-translate-y-[0.9rem] peer-focus:scale-[0.8] peer-focus:text-primary peer-data-[te-input-state-active]:-translate-y-[0.9rem] peer-data-[te-input-state-active]:scale-[0.8] motion-reduce:transition-none dark:text-neutral-200 dark:peer-focus:text-neutral-200'
+                                >
+                                    Text input
+                                </label>
+                            </div>
+                        </div>
+                    </div>`;
+            };
+
             //* push food ordered to order array to take data from chef page
             orders.push({
                 name: $.trim($(name).text()),
                 price: $.trim($(price).text()).split(' ')[0], //* split [price] $ into two elements
             });
+
             console.log('orders', orders);
+
+            $('.orderingFood').append(template($.trim($(name).text()), Number($.trim($(price).text()).split(' ')[0])));
 
             //* push ingredients in each foods to ingredientsStore array to update ingredients's quantity
             ingredients.each((index, item) => {
@@ -173,37 +205,36 @@ $(document).ready(() => {
     });
 
     //* increase food's quantity when click plus icon
-    $('.sidebar_right_plus').each((index, item) => {
-        let number = 1;
-        $(item).click(function () {
-            const quantity = $(this).prevAll()[2];
-            $(quantity).text(++number);
-        });
+    $('.orderingFood').delegate('.sidebar_right_plus', 'click', function () {
+        const quantity = $(this).prevAll()[2];
+        const price = $(this).prevAll()[0];
+        let number = Number($(quantity).text());
+
+        const newQuantity = $(quantity).text(++number);
+        let newPrice = Number($(price).text().split(' ')[0]) * newQuantity.text();
+        $(price).text(`${newPrice} $`);
     });
 
     //* decrease food's quantity when click minus icon
     //* or remove food from session storage if quantity <= 0 (incase user want to remove from order list)
-    $('.sidebar_right_minus').each((index, item) => {
-        let number = 1;
-        $(item).click(function () {
-            const quantity = $(this).next().text();
-            if (Number(quantity) > 0) {
-                console.log('greater than 0');
-                $(quantity).text(--number);
-                console.log(number)
-            } else {
-                console.log('less than 0');
-            }
-        });
-        // $(item).click(function () {
-        //     const nameFood = $(this).prevAll()[3];
-        //     orders.forEach((item, index) => {
-        //         if (item.name === $.trim($(nameFood).text())) {
-        //             //* remove item from order array
-        //             orders.splice(index, 1);
-        //         }
-        //     });
-        //     //TODO increase ingredient's quantity here
-        // });
+    $('.orderingFood').delegate('.sidebar_right_minus', 'click', function () {
+        const quantity = $(this).next();
+        const price = $(this).nextAll()[2];
+        let number = $(quantity).text();
+        //* divide into two cases like comment above
+        if (Number(number) > 0) {
+            let newPrice = Number($(price).text().split(' ')[0]) / Number($(quantity).text());
+            $(quantity).text(--number);
+            $(price).text(`${newPrice} $`);
+        } else {
+            const foodName = $(this).nextAll()[1];
+            orders.forEach((item, index) => {
+                if (item.name === $.trim($(foodName).text())) {
+                    //* remove item from order array
+                    orders.splice(index, 1);
+                    console.log('orders after deleted', orders);
+                }
+            });
+        }
     });
 });
