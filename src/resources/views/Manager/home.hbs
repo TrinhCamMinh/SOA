@@ -1,14 +1,5 @@
-<kbd>This is home page of Manager</kbd>
 {{#each data as |item|}}
-    <h2>{{item._id}}</h2>
-    <i>{{item.quantity}}</i>
-    <i>{{item.price}}</i>
-    <kbd>{{item.table}}</kbd>
-    <code>{{formatDate item.createdAt}}</code>
-    <ul>
-        {{#each this.name as |food|}}
-            <li>{{food}}</li>
-        {{/each}}
-    </ul>
+    {{> invoice id=item._id foods=item.foods date=item.createdAt total=item.price quantity=item.quantity table=item.table }}
     <br>
 {{/each}}
+
