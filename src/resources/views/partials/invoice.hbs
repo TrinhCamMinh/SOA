@@ -3,57 +3,44 @@
         <div class="top">
             <div class="top-left">
                 <h1 class="main">Invoice</h1>
-                <span class="code">#258942</span>
+                <span class="code">#63f6ffdf9d55d1eba6399364</span>
             </div>
             <div class="top-right">
-                <div class="date">Date: 03.03.2023</div>
+                <div class="date">Date: Thursday, February 23, 2023 at 12:55:43 PM GMT+7</div>
             </div>
         </div>
-        <div class="table-bill">
-            <table class="table-service">
+        <div class='table-bill'>
+            <table class='table-service'>
                 <thead>
-                    <th class="no">NO.</th>
+                    <th class='no'>NO.</th>
                     <th>NAME</th>
-                    <th class="table-bill-price">PRICE</th>
+                    <th class='table-bill-price'>PRICE</th>
                     <th>QTY</th>
-                    <th class="cost">Cost</th>
+                    <th class='cost'>Cost</th>
                 </thead>
                 <tbody>
-                    <tr>
-                        <td>1</td>
-                        <td>Website Design</td>
-                        <td>2</td>
-                        <td>2</td>
-                        <td class="cost">$ 4000</td>
-                    </tr>
-                    <tr>
-                        <td>2</td>
-                        <td>Logo Design</td>
-                        <td>1</td>
-                        <td>2</td>
-                        <td class="cost">$ 2000</td>
-                    </tr>
-                    <tr>
-                        <td>3</td>
-                        <td>Application Design</td>
-                        <td>4</td>
-                        <td>2</td>
-                        <td class="cost">$ 4000</td>
-                    </tr>
+                    {{#each this.foods as |item|}}
+                        <tr>
+                            <td>{{increaseIndexByOne @index}}</td>
+                            <td>{{item.food.name}}</td>
+                            <td>{{formatCurrency item.food.price}}</td>
+                            <td>{{item.quantity}}</td>
+                            <td class='cost'>{{formatCurrency (multiply item.food.price item.quantity)}}</td>
+                        </tr>
+                    {{/each}}
                 </tbody>
                 <tfoot>
-                    <tr class="total">
-                        <td class="name">Total</td>
-                        <td colspan="2" class="number">$ 7500</td>
+                    <tr class='total'>
+                        <td class='name'>Total</td>
+                        <td colspan='2' class='number'>{{formatCurrency this.total}}</td>
                     </tr>
                 </tfoot>
             </table>
         </div>
         <div class="actions">
             <button class="btn btn-main">Print</button>
-            <button class="btn btn-main">Pay Now</button>
         </div>
-        <div class="note">
+        <div class='note'>
             <p>Thank You for working with us!</p>
         </div>
     </div>

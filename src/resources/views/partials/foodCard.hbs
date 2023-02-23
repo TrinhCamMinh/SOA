@@ -10,14 +10,14 @@
             <h4>{{description}}</h4>
         </div>
         <div class='price'>
-            <p>$ {{formatCurrency price}}</p>
+            <p>{{formatCurrency price}}</p>
         </div>
         <div class='circle'>
             <div class='plus'></div>
         </div>
-        {{#each ingredients}}
-            <div class='ingredients' style='position: relative; top: 1px; color: red; opacity: 0;'>
-                <p>{{this}}</p>
+        {{#each ingredients as |ingredient|}}
+            <div class='ingredients' style='position: relative; top: 1px; opacity: 0;'>
+                <p class='ingredient'>{{ingredient.name}}-{{ingredient.quantity}}</p>
             </div>
         {{/each}}
     </div>

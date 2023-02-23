@@ -1,7 +1,7 @@
 const { billModel } = require('../models/');
 
 const homePage = async (req, res) => {
-    const data = await billModel.find({}).lean();
+    const data = await billModel.find({}).populate({ path: 'foods.food' }).lean();
     res.render('./Manager/home', { data });
 };
 
@@ -22,9 +22,9 @@ const getBillBaseOnDate = async (req, res) => {
 };
 
 const postBill = async (req, res) => {
-    const { quantity, name, price, table } = req.body;
+    const { quantity, foods, total, table } = req.body;
     try {
-        const data = await billModel.create({ quantity, name, price, table });
+        const data = await billModel.create({ quantity, foods, total, table });
         res.status(200).json(data);
     } catch (error) {
         res.status(500).json(error.message);
