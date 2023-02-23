@@ -13,17 +13,14 @@ const billSchema = new Schema(
             },
             message: (props) => `${props.value} is less than 0`,
         },
-        name: {
-            type: [String],
-            required: [true, 'Bill must include food'],
-            validate: {
-                validator: function (value) {
-                    return value.length >= 1;
-                },
-                message: () => `Please provide at least one food `,
+        foods: [
+            {
+                _id: false ,
+                food: { type: mongoose.SchemaTypes.ObjectId, ref: 'Food'},
+                quantity: { type: Number },
             },
-        },
-        price: {
+        ],
+        total: {
             type: Number,
             required: [true, 'total price must be calculated'],
         },

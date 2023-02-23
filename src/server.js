@@ -28,6 +28,9 @@ app.engine(
             //* increasing index by 1 (default start with 0)
             increaseIndexByOne: (index) => index + 1,
 
+            //* time two elements (food's price with food's quantity)
+            multiply: (a, b) => a * b,
+
             //* formatting currency to dollar
             formatCurrency: (price) => {
                 if (price) return price.toString().replace(/(\d)(?=(\d\d\d)+(?!\d))/g, '$1.') + ' $';

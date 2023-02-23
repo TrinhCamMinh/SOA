@@ -13,6 +13,10 @@ const updateHistory = async (req, res) => {
             res.status(200).json(data);
         } else if (exist && type === 'add') {
             const data = await historyModel.findOneAndUpdate({ name }, { quantity: quantity + 1 }, { new: true });
+            //* update favorite field in foods database
+            if (data.quantity > 5) {
+                await foodModel.findOneAndUpdate({ name: data.name }, { favorite: true });
+            }
             res.status(200).json(data);
         } else if (exist && type === 'minus' && quantity > 0) {
             //* the last condition will prevent user from minus when quantity is 0
