@@ -1,8 +1,25 @@
-const { billModel } = require('../models/');
+const { billModel, foodModel } = require('../models/');
 
 const homePage = async (req, res) => {
-    const data = await billModel.find({}).populate({ path: 'foods.food' }).lean();
-    res.render('./Manager/home', { data });
+    try {
+        res.render('./Manager/home');
+    } catch (error) {
+        res.status(500).json(error.message);
+    }
+};
+
+const filter = async (req, res) => {
+    const { option } = req.params;
+    if (option === 'foods') {
+        const foods = await foodModel.find({}).populate('ingredients').lean();
+        res.render('./Manager/home', { foods });
+    } else if (option === 'bills') {
+        const bills = await billModel.find({}).populate({ path: 'foods.id' }).lean();
+        res.render('./Manager/home', { bills });
+    } else {
+        const tables = [1, 2, 3, 4, 5, 6, 7, 8];
+        res.render('./Manager/home', { tables });
+    }
 };
 
 const getBillBaseOnDate = async (req, res) => {
@@ -33,6 +50,7 @@ const postBill = async (req, res) => {
 
 module.exports = {
     homePage,
+    filter,
     getBillBaseOnDate,
     postBill,
 };

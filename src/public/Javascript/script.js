@@ -47,7 +47,6 @@ $(document).ready(() => {
         });
     });
 
-    //* Add food ordered to session storage
     const orders = new Array();
     const prices = new Array();
     const ingredientsStore = new Array();
@@ -59,50 +58,42 @@ $(document).ready(() => {
             const price = $(this).prevAll()[0];
             const ingredients = $(this).nextAll();
 
-            const template = (name, price = 1) => {
+            const template = (name, price = 0) => {
                 return `
                     <div>
                         <div class='flex justify-start items-center px-[10px] py-[10px] w-full'>
                             <button class='sidebar_right_minus'><i class='fa-solid fa-minus'></i></button>
-                            <span class='w-[50px] ml-[30px]' id='qty'>1</span>
-                            <span class=''>${name}</span>
-                            <span class='ml-auto'>${price}</span>
+                            <span class='span-1 w-[50px] ml-[30px]' id='qty'>1</span>
+                            <span class='span-2'>${name}</span>
+                            <span class='span-3 ml-auto'>${price} $</span>
                             <button class='sidebar_right_plus ml-auto'><i class='fa-solid fa-plus'></i></button>
                         </div>
-                        <div class='flex justify-center'>
-                            <div class='relative mb-3 xl:w-96' data-te-input-wrapper-init>
+                        <div class="flex justify-center">
+                            <div class="relative mb-3 xl:w-96" data-te-input-wrapper-init>
                                 <input
-                                    type='text'
-                                    class='peer block min-h-[auto] w-full rounded border-0 bg-transparent py-[0.32rem] px-3 leading-[1.6] outline-none transition-all duration-200 ease-linear focus:placeholder:opacity-100 data-[te-input-state-active]:placeholder:opacity-100 motion-reduce:transition-none dark:text-neutral-200 dark:placeholder:text-neutral-200 [&:not([data-te-input-placeholder-active])]:placeholder:opacity-0'
-                                    id='exampleFormControlInputText'
-                                    placeholder='Example label'
+                                    type="text"
+                                    class="test peer block min-h-[auto] w-full rounded border-0 bg-transparent py-[0.32rem] px-3 leading-[1.6] outline-none transition-all duration-200 ease-linear focus:placeholder:opacity-100 data-[te-input-state-active]:placeholder:opacity-100 motion-reduce:transition-none dark:text-neutral-200 dark:placeholder:text-neutral-200 [&:not([data-te-input-placeholder-active])]:placeholder:opacity-0"
+                                    id="exampleFormControlInput1"
+                                    placeholder="Example label" 
                                 />
                                 <label
-                                    for='exampleFormControlInputText'
-                                    class='pointer-events-none absolute top-0 left-3 mb-0 max-w-[90%] origin-[0_0] truncate pt-[0.37rem] leading-[1.6] text-neutral-500 transition-all duration-200 ease-out peer-focus:-translate-y-[0.9rem] peer-focus:scale-[0.8] peer-focus:text-primary peer-data-[te-input-state-active]:-translate-y-[0.9rem] peer-data-[te-input-state-active]:scale-[0.8] motion-reduce:transition-none dark:text-neutral-200 dark:peer-focus:text-neutral-200'
-                                >
-                                    Text input
+                                    for="exampleFormControlInput1"
+                                    class="pointer-events-none absolute top-0 left-3 mb-0 max-w-[90%] origin-[0_0] truncate pt-[0.37rem] leading-[1.6] text-neutral-500 transition-all duration-200 ease-out peer-focus:-translate-y-[0.9rem] peer-focus:scale-[0.8] peer-focus:text-primary peer-data-[te-input-state-active]:-translate-y-[0.9rem] peer-data-[te-input-state-active]:scale-[0.8] motion-reduce:transition-none dark:text-neutral-200 dark:peer-focus:text-neutral-200"
+                                    >Example label
                                 </label>
                             </div>
                         </div>
                     </div>`;
             };
 
-            //* push food ordered to order array to take data from chef page
-            orders.push({
-                name: $.trim($(name).text()),
-                price: $.trim($(price).text()).split(' ')[0], //* split [price] $ into two elements
-            });
-
-            console.log('orders', orders);
-
+            //* append order to sidebar right
             $('.orderingFood').append(template($.trim($(name).text()), Number($.trim($(price).text()).split(' ')[0])));
 
             //* push ingredients in each foods to ingredientsStore array to update ingredients's quantity
             ingredients.each((index, item) => {
                 //* in food card, we display like this [name]-[quantity]
                 //* so we use split to take the first part to call API
-                ingredientsStore.push($.trim($(item).text().split('-')[0]));
+                ingredientsStore.push($.trim($(item).text()).split('-')[0]);
             });
 
             console.log('ingredients', ingredientsStore);
@@ -114,26 +105,46 @@ $(document).ready(() => {
         $(item)
             .find('.ingredient')
             .each((index, value) => {
-                //* 2 is the index of foodCard in value parents list
+                //* 2 is the index of foodCard in value's parents list
                 if (!Number($(value).text().split('-')[1])) {
                     const ingredients = $(value).parent();
+                    //! This only true when the first ingredient is 0
+                    //! if the first is still available and the second is out of amount
+                    //! JQuery will select the wrong element
                     const circle = $(ingredients).prev();
                     //* remove click event on circle button since we disable this food card
                     $(circle).off('click');
 
                     const parent = $(value).parents()[2];
-                    $(parent).css('background-color', 'gray');
+                    $(parent).css('opacity', '0.6');
                 }
             });
     });
 
     $('.order').click(function () {
-        //* add data to cart database
-        const addCart = async (name, price) => {
-            fetch('http://localhost:3000/carts', {
+        const span1 = $('.span-1');
+        const span2 = $('.span-2');
+        const span3 = $('.span-3');
+        const input = $('.test');
+
+        const ids = new Array();
+        const quantityArray = new Array();
+        const nameArray = new Array();
+        const priceArray = new Array();
+        const noteArray = new Array();
+
+        //* get foods ID
+        const getID = async (name) => {
+            const res = await fetch(`http://localhost:3000/${name}`);
+            const { _id } = await res.json();
+            ids.push(_id);
+        };
+
+        const addCart = async (name, price, quantity, note) => {
+            fetch('http://localhost:3000/cart', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ name, price }),
+                body: JSON.stringify({ name, price, quantity, note }),
             });
         };
 
@@ -151,10 +162,36 @@ $(document).ready(() => {
             });
         };
 
-        //* add order to cart database
-        orders.forEach((item) => {
-            addCart(item.name, Number(item.price.replace(',', '')));
-            updateOrderHistory(item.name);
+        $(span1).each((index, item) => {
+            quantityArray.push($(item).text());
+        });
+
+        $(span2).each((index, item) => {
+            nameArray.push($(item).text());
+        });
+
+        $(span3).each((index, item) => {
+            priceArray.push($(item).text().split(' ')[0]);
+        });
+
+        $(input).each((index, item) => {
+            noteArray.push($(item).val() || ' ');
+        });
+
+        quantityArray.forEach(async (item, index) => {
+            await getID(nameArray[index]);
+            orders.push({
+                id: ids[index],
+                quantity: quantityArray[index],
+                name: nameArray[index],
+                price: priceArray[index],
+                note: noteArray[index],
+            });
+            console.log('orders', orders);
+
+            //* add order to cart database
+            addCart(nameArray[index], priceArray[index], quantityArray[index], noteArray[index]);
+            updateOrderHistory(nameArray[index]);
         });
 
         //* update ingredients's quantity in database
@@ -170,38 +207,30 @@ $(document).ready(() => {
 
     //* calculating total price for user
     $('.payment').click(function () {
-        sessionStorage.setItem('foods', JSON.stringify(orders));
-        const foodObject = JSON.parse(sessionStorage.getItem('foods'));
-        foodObject.map((item) => {
+        //* call API to create bill
+        const createBill = async (quantity, foods, total, table = 1) => {
+            fetch('http://localhost:3000/manager/bill', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ quantity, foods, total, table }),
+            });
+        };
+
+        orders.forEach((item) => {
             //* convert price (string) to price (Number)
-            prices.push(Number(item.price.replace(',', '')));
+            prices.push(Number(item.price));
         });
 
         const total = prices.reduce(sum, 0);
         console.log(prices.length);
         console.log(total);
 
-        const names = new Array();
-
-        orders.forEach((item) => {
-            names.push(item.name);
-        });
-
-        //* call API to create bill
-        const fetchAPI = async (quantity, name, total, table = 1) => {
-            fetch('http://localhost:3000/manager/bill', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ quantity, name, total, table }),
-            });
-        };
-
         //* call API for payment then clear all the data in array
-        fetchAPI(prices.length, names, total);
+        createBill(prices.length, orders, total);
         orders.length = 0;
         prices.length = 0;
-        names.length = 0;
-        console.log(orders, prices, names);
+        ids.length = 0;
+        console.log(orders, prices, ids);
     });
 
     //* increase food's quantity when click plus icon
@@ -227,14 +256,33 @@ $(document).ready(() => {
             $(quantity).text(--number);
             $(price).text(`${newPrice} $`);
         } else {
-            const foodName = $(this).nextAll()[1];
-            orders.forEach((item, index) => {
-                if (item.name === $.trim($(foodName).text())) {
-                    //* remove item from order array
-                    orders.splice(index, 1);
-                    console.log('orders after deleted', orders);
-                }
-            });
+            //* remove this order from sidebar right
+            const order = $(this).parents()[1];
+            $(order).text(' ');
         }
+    });
+
+    //* update done status in chef page base on checkbox
+    $("input[type='checkbox'][name='doneOrder']").each((index, item) => {
+        $(item).change(function () {
+            const row = $(this).parents()[4];
+            const id = $(row).children()[0];
+            const status = $(this).parents()[3];
+
+            const updateDoneStatus = (id, status) => {
+                fetch(`http://localhost:3000/cart/${id}?done=${status}`, {
+                    method: 'PUT',
+                    headers: { 'Content-Type': 'application/json' },
+                });
+            };
+
+            if ($(this).prop('checked')) {
+                $(status).prev().text('true');
+                updateDoneStatus($(id).text(), true);
+            } else {
+                $(status).prev().text('false');
+                updateDoneStatus($(id).text(), false);
+            }
+        });
     });
 });
