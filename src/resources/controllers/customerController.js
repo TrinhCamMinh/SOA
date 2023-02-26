@@ -9,6 +9,16 @@ const homePage = async (req, res) => {
     }
 };
 
+const getFoodID = async (req, res) => {
+    try {
+        const { name } = req.params;
+        const data = await foodModel.findOne({ name }).select('_id').lean();
+        res.status(200).json(data);
+    } catch (error) {
+        res.status(500).json(error.message);
+    }
+};
+
 const filter = async (req, res) => {
     try {
         const type = req.query.type;
@@ -27,4 +37,5 @@ const filter = async (req, res) => {
 module.exports = {
     homePage,
     filter,
+    getFoodID,
 };

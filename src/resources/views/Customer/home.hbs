@@ -7,7 +7,7 @@
     {{!-- Menu --}}
     <div class="grid grid-cols-2 mr-auto pl-[50px] pt-[20px] ">
         {{#each data as |item|}}
-            {{> foodCard name=item.name image=item.images price=item.price description=item.description ingredients=item.ingredients}}
+            {{> foodCard id=item._id name=item.name image=item.images price=item.price description=item.description ingredients=item.ingredients}}
         {{/each}}
     </div>
     {{!-- Right sideBar --}}
@@ -17,18 +17,13 @@
             <p class="py-[10px] align-middle text-center font-bold">Ordering</p>
         </div>
         {{!-- Ordering Food --}}
-        <div class="orderingFood test mb-auto overflow-auto">
+        <div class="orderingFood mb-auto overflow-auto">
             {{!-- * JQuery will append data here  --}}
         </div>
         
         {{!-- Footer --}}
-        <div class="grid grid-cols-2 pt-[10px] pb-[20px]">
-            <span class="pl-[10px]">No: </span>
-            <span class="pl-[10px]">Total: </span>
-
-        </div>
         <div class="text-center pb-[5px]">
-            <button type="button" class="order inline-block px-6 py-2.5 bg-blue-600 text-white font-medium text-xs leading-tight uppercase rounded shadow-md hover:bg-blue-700 hover:shadow-lg focus:bg-blue-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-blue-800 active:shadow-lg transition duration-150 ease-in-out">Order</button>
+            {{> button content='order' class='order inline-block uppercase'}}
         </div>
     </div>
 </div>

@@ -16,7 +16,7 @@ const billSchema = new Schema(
         foods: [
             {
                 _id: false ,
-                food: { type: mongoose.SchemaTypes.ObjectId, ref: 'Food'},
+                id: { type: mongoose.SchemaTypes.ObjectId, ref: 'Food'},
                 quantity: { type: Number },
             },
         ],

@@ -1,8 +1,16 @@
-const { billModel } = require('../models/');
+const { billModel, foodModel } = require('../models/');
 
 const homePage = async (req, res) => {
-    const data = await billModel.find({}).populate({ path: 'foods.food' }).lean();
-    res.render('./Manager/home', { data });
+    try {
+        res.render('./Manager/home');
+    } catch (error) {
+        res.status(500).json(error.message);
+    }
+};
+
+const showBills = async (req, res) => {
+    const bills = await billModel.find({}).populate({ path: 'foods.id' }).lean();
+    res.render('./Manager/bill', { bills });
 };
 
 const getBillBaseOnDate = async (req, res) => {
@@ -13,9 +21,27 @@ const getBillBaseOnDate = async (req, res) => {
         const date2 = new Date();
         date2.setDate(date.getDate() + 1);
         const tomorrowDate = new Date(date2.toLocaleString());
-        const data = await billModel.find({ createdAt: { $gt: date, $lt: tomorrowDate } }).select('createdAt -_id');
+        const bills = await billModel.find({ createdAt: { $gt: date, $lt: tomorrowDate } }).populate({ path: 'foods.id' }).lean();
+        
+        res.render('./Manager/bill', { bills });
+    } catch (error) {
+        res.status(500).json(error.message);
+    }
+};
 
-        res.status(200).json(data);
+const showTables = async (req, res) => {
+    try {
+        const tables = [1, 2, 3, 4, 5, 6, 7, 8];
+        res.render('./Manager/table', { tables });
+    } catch (error) {
+        res.status(500).json(error.message);
+    }
+};
+
+const showFoods = async (req, res) => {
+    try {
+        const foods = await foodModel.find({}).populate('ingredients').lean();
+        res.render('./Manager/food', { foods });
     } catch (error) {
         res.status(500).json(error.message);
     }
@@ -33,6 +59,9 @@ const postBill = async (req, res) => {
 
 module.exports = {
     homePage,
+    showBills,
+    showFoods,
+    showTables,
     getBillBaseOnDate,
     postBill,
 };

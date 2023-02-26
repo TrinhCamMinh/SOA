@@ -87,73 +87,35 @@
     </ul>
 </div>
 
-{{!--* Start Line Chart Section --}}
-<div class='overflow-hidden rounded-lg shadow-lg'>
-    <div class='bg-neutral-50 py-3 px-5 dark:bg-neutral-700 dark:text-neutral-200'>
-        Line chart
+<br>
+
+<div class='flex flex-col'>
+    <div class='overflow-x-auto sm:-mx-6 lg:-mx-8'>
+        <div class='inline-block min-w-full py-2 sm:px-6 lg:px-8'>
+            <div class='overflow-hidden'>
+                <table class='min-w-full text-left text-sm font-light'>
+                    <thead class='border-b bg-neutral-800 font-medium dark:border-neutral-500 text-white'>
+                        <tr>
+                            <th scope='col' class='px-6 py-4'>No.</th>
+                            <th scope='col' class='px-6 py-4'>Name</th>
+                            <th scope='col' class='px-6 py-4'>Price</th>
+                            <th scope='col' class='px-6 py-4'>Type</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {{#each foods as |item|}}
+                            <tr
+                                class='border-b transition duration-300 ease-in-out hover:bg-neutral-100 dark:border-neutral-500 dark:hover:bg-neutral-600 hover:text-white'
+                            >
+                                <td class='whitespace-nowrap px-6 py-4 font-medium'>{{@index}}</td>
+                                <td class='whitespace-nowrap px-6 py-4'>{{item.name}}</td>
+                                <td class='whitespace-nowrap px-6 py-4'>{{formatCurrency item.price}}</td>
+                                <td class='whitespace-nowrap px-6 py-4'>{{item.type}}</td>
+                            </tr>
+                        {{/each}}
+                    </tbody>
+                </table>
+            </div>
+        </div>
     </div>
-    <canvas class='p-10' id='chartLine'></canvas>
 </div>
-
-<!-- Required chart.js -->
-<script src='https://cdn.jsdelivr.net/npm/chart.js'></script>
-
-<!-- Chart line -->
-<script>
-    const labels = ["January", "February", "March", "April", "May", "June"]; 
-    const data = { labels: labels, datasets: [
-                { 
-                    label: "My First dataset", backgroundColor: "hsl(217, 57%, 51%)", borderColor: "hsl(217, 57%, 51%)", data: [0, 10,5, 2, 20, 30, 45], 
-                }, 
-            ], 
-        }; 
-    const configLineChart = { type: "line", data, options: {}, }; const chartLine = new Chart(document.getElementById("chartLine"), configLineChart );
-</script>
-{{!--* End Line Chart Section --}}
-
-{{!--* Start Bar Chart Section --}}
-<div class="overflow-hidden rounded-lg shadow-lg">
-    <div
-        class="bg-neutral-50 py-3 px-5 dark:bg-neutral-700 dark:text-neutral-200">
-        Bar chart
-    </div>
-    <canvas class="p-10" id="chartBar"></canvas>
-</div>
-
-<!-- Required chart.js -->
-<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-
-<!-- Chart bar -->
-<script>
-  const labelsBarChart = [
-    "January",
-    "February",
-    "March",
-    "April",
-    "May",
-    "June",
-  ];
-  const dataBarChart = {
-        labels: labelsBarChart,
-        datasets: [
-            {
-                label: "My First dataset",
-                backgroundColor: "hsl(217, 57%, 51%)",
-                borderColor: "hsl(217, 57%, 51%)",
-                data: [0, 10, 5, 2, 20, 30, 45],
-            },
-        ],
-  };
-
-  const configBarChart = {
-        type: "bar",
-        data: dataBarChart,
-        options: {},
-  };
-
-  const chartBar = new Chart(
-        document.getElementById("chartBar"), 
-        configBarChart
-  );
-</script>
-{{!--* End Line Chart Section --}}

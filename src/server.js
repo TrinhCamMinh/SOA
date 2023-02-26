@@ -55,9 +55,9 @@ app.use('/waiter', waiterRoutes);
 app.use('/account', accountRoutes);
 app.use('/history', historyRoutes);
 app.use('/ingredients', ingredientsRoutes);
-app.use('/carts', cartRoutes);
+app.use('/cart', cartRoutes);
 
-app.use('/', (req, res) => {
+app.use('/404', (req, res) => {
     res.render('404', { layout: 'layout404' });
 });
 
@@ -69,7 +69,7 @@ mongoose
         app.listen(process.env.PORT, () => {
             console.log(`connect database successfully`);
             console.log(`listening on PORT ${process.env.PORT}...`);
-            console.log(`http://localhost:3000/`);
+            console.log(`http://localhost:${process.env.PORT}/`);
         });
     })
     .catch((error) => {
