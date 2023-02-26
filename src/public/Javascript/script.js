@@ -50,6 +50,7 @@ $(document).ready(() => {
     const orders = new Array();
     const prices = new Array();
     const ingredientsStore = new Array();
+    const ids = new Array();
     $('.circle').each((index, item) => {
         $(item).click(function () {
             //* take the nameFood class which is the last sibling to .circle
@@ -60,7 +61,7 @@ $(document).ready(() => {
 
             const template = (name, price = 0) => {
                 return `
-                    <div>
+                    <div class="order">
                         <div class='flex justify-start items-center px-[10px] py-[10px] w-full'>
                             <button class='sidebar_right_minus'><i class='fa-solid fa-minus'></i></button>
                             <span class='span-1 w-[50px] ml-[30px]' id='qty'>1</span>
@@ -108,13 +109,14 @@ $(document).ready(() => {
                 //* 2 is the index of foodCard in value's parents list
                 if (!Number($(value).text().split('-')[1])) {
                     const ingredients = $(value).parent();
-                    //! This only true when the first ingredient is 0
-                    //! if the first is still available and the second is out of amount
-                    //! JQuery will select the wrong element
-                    const circle = $(ingredients).prev();
+                    let circle = null;
+                    if ($(ingredients).prev().hasClass('circle')) {
+                        circle = $(ingredients).prev();
+                    } else {
+                        circle = $(ingredients).prevAll()[1];
+                    }
                     //* remove click event on circle button since we disable this food card
                     $(circle).off('click');
-
                     const parent = $(value).parents()[2];
                     $(parent).css('opacity', '0.6');
                 }
@@ -127,7 +129,6 @@ $(document).ready(() => {
         const span3 = $('.span-3');
         const input = $('.test');
 
-        const ids = new Array();
         const quantityArray = new Array();
         const nameArray = new Array();
         const priceArray = new Array();
@@ -135,7 +136,7 @@ $(document).ready(() => {
 
         //* get foods ID
         const getID = async (name) => {
-            const res = await fetch(`http://localhost:3000/${name}`);
+            const res = await fetch(`http://localhost:3000/getID/${name}`);
             const { _id } = await res.json();
             ids.push(_id);
         };
@@ -198,6 +199,9 @@ $(document).ready(() => {
         ingredientsStore.forEach((item) => {
             updateIngredients(item);
         });
+
+        //* clear data when submit order
+        $('.orderingFood').text('');
     });
 
     //* calculate total price of the bill
@@ -245,13 +249,13 @@ $(document).ready(() => {
     });
 
     //* decrease food's quantity when click minus icon
-    //* or remove food from session storage if quantity <= 0 (incase user want to remove from order list)
+    //* or remove food from sidebar right if quantity <= 0 (incase user want to remove from order list)
     $('.orderingFood').delegate('.sidebar_right_minus', 'click', function () {
         const quantity = $(this).next();
         const price = $(this).nextAll()[2];
         let number = $(quantity).text();
         //* divide into two cases like comment above
-        if (Number(number) > 0) {
+        if (Number(number) > 1) {
             let newPrice = Number($(price).text().split(' ')[0]) / Number($(quantity).text());
             $(quantity).text(--number);
             $(price).text(`${newPrice} $`);
@@ -284,5 +288,11 @@ $(document).ready(() => {
                 updateDoneStatus($(id).text(), false);
             }
         });
+    });
+
+    //* find bill base on a specific date
+    $('.findDate').click(function () {
+        const result = $('.date-picker').val().replace(/\//g, '-');
+        window.location.href = `/manager/bill?date=${result}`;
     });
 });

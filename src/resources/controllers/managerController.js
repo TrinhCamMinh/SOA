@@ -8,18 +8,9 @@ const homePage = async (req, res) => {
     }
 };
 
-const filter = async (req, res) => {
-    const { option } = req.params;
-    if (option === 'foods') {
-        const foods = await foodModel.find({}).populate('ingredients').lean();
-        res.render('./Manager/home', { foods });
-    } else if (option === 'bills') {
-        const bills = await billModel.find({}).populate({ path: 'foods.id' }).lean();
-        res.render('./Manager/home', { bills });
-    } else {
-        const tables = [1, 2, 3, 4, 5, 6, 7, 8];
-        res.render('./Manager/home', { tables });
-    }
+const showBills = async (req, res) => {
+    const bills = await billModel.find({}).populate({ path: 'foods.id' }).lean();
+    res.render('./Manager/bill', { bills });
 };
 
 const getBillBaseOnDate = async (req, res) => {
@@ -30,9 +21,27 @@ const getBillBaseOnDate = async (req, res) => {
         const date2 = new Date();
         date2.setDate(date.getDate() + 1);
         const tomorrowDate = new Date(date2.toLocaleString());
-        const data = await billModel.find({ createdAt: { $gt: date, $lt: tomorrowDate } }).select('createdAt -_id');
+        const bills = await billModel.find({ createdAt: { $gt: date, $lt: tomorrowDate } }).populate({ path: 'foods.id' }).lean();
+        
+        res.render('./Manager/bill', { bills });
+    } catch (error) {
+        res.status(500).json(error.message);
+    }
+};
 
-        res.status(200).json(data);
+const showTables = async (req, res) => {
+    try {
+        const tables = [1, 2, 3, 4, 5, 6, 7, 8];
+        res.render('./Manager/table', { tables });
+    } catch (error) {
+        res.status(500).json(error.message);
+    }
+};
+
+const showFoods = async (req, res) => {
+    try {
+        const foods = await foodModel.find({}).populate('ingredients').lean();
+        res.render('./Manager/food', { foods });
     } catch (error) {
         res.status(500).json(error.message);
     }
@@ -50,7 +59,9 @@ const postBill = async (req, res) => {
 
 module.exports = {
     homePage,
-    filter,
+    showBills,
+    showFoods,
+    showTables,
     getBillBaseOnDate,
     postBill,
 };

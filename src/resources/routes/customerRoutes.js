@@ -1,7 +1,7 @@
 const router = require('express').Router();
 const { customerController } = require('../controllers');
 
-router.get('/:name', customerController.getFoodID);
+router.get('/getID/:name', customerController.getFoodID);
 
 router.get('/filter', customerController.filter);
 

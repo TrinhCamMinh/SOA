@@ -87,73 +87,30 @@
     </ul>
 </div>
 
-{{!--* Start Line Chart Section --}}
-<div class='overflow-hidden rounded-lg shadow-lg'>
-    <div class='bg-neutral-50 py-3 px-5 dark:bg-neutral-700 dark:text-neutral-200'>
-        Line chart
+<br />
+
+{{!-- <input class='date-picker' type='date' value='02/25/2023' /> --}}
+
+<div class='flex items-center justify-center'>
+    <div class='relative mb-3 xl:w-96' data-te-datepicker-init data-te-input-wrapper-init data-te-format="mm/dd/yy">
+        <input
+            type='text'
+            class='date-picker peer block min-h-[auto] w-full rounded border-0 bg-transparent py-[0.32rem] px-3 leading-[2.15] outline-none transition-all duration-200 ease-linear focus:placeholder:opacity-100 data-[te-input-state-active]:placeholder:opacity-100 motion-reduce:transition-none dark:text-neutral-200 dark:placeholder:text-neutral-200 [&:not([data-te-input-placeholder-active])]:placeholder:opacity-0'
+            placeholder='Select a date'
+        />
+        <label
+            for='floatingInput'
+            class='pointer-events-none absolute top-0 left-3 mb-0 max-w-[90%] origin-[0_0] truncate pt-[0.37rem] leading-[2.15] text-neutral-500 transition-all duration-200 ease-out peer-focus:-translate-y-[1.15rem] peer-focus:scale-[0.8] peer-focus:text-primary peer-data-[te-input-state-active]:-translate-y-[1.15rem] peer-data-[te-input-state-active]:scale-[0.8] motion-reduce:transition-none dark:text-neutral-200 dark:peer-focus:text-neutral-200'
+        >Select a date</label>
     </div>
-    <canvas class='p-10' id='chartLine'></canvas>
 </div>
 
-<!-- Required chart.js -->
-<script src='https://cdn.jsdelivr.net/npm/chart.js'></script>
+{{> button content='Find' class='findDate'}}
 
-<!-- Chart line -->
-<script>
-    const labels = ["January", "February", "March", "April", "May", "June"]; 
-    const data = { labels: labels, datasets: [
-                { 
-                    label: "My First dataset", backgroundColor: "hsl(217, 57%, 51%)", borderColor: "hsl(217, 57%, 51%)", data: [0, 10,5, 2, 20, 30, 45], 
-                }, 
-            ], 
-        }; 
-    const configLineChart = { type: "line", data, options: {}, }; const chartLine = new Chart(document.getElementById("chartLine"), configLineChart );
-</script>
-{{!--* End Line Chart Section --}}
-
-{{!--* Start Bar Chart Section --}}
-<div class="overflow-hidden rounded-lg shadow-lg">
-    <div
-        class="bg-neutral-50 py-3 px-5 dark:bg-neutral-700 dark:text-neutral-200">
-        Bar chart
-    </div>
-    <canvas class="p-10" id="chartBar"></canvas>
-</div>
-
-<!-- Required chart.js -->
-<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-
-<!-- Chart bar -->
-<script>
-  const labelsBarChart = [
-    "January",
-    "February",
-    "March",
-    "April",
-    "May",
-    "June",
-  ];
-  const dataBarChart = {
-        labels: labelsBarChart,
-        datasets: [
-            {
-                label: "My First dataset",
-                backgroundColor: "hsl(217, 57%, 51%)",
-                borderColor: "hsl(217, 57%, 51%)",
-                data: [0, 10, 5, 2, 20, 30, 45],
-            },
-        ],
-  };
-
-  const configBarChart = {
-        type: "bar",
-        data: dataBarChart,
-        options: {},
-  };
-
-  const chartBar = new Chart(
-        document.getElementById("chartBar"), 
-        configBarChart
-  );
-</script>
-{{!--* End Line Chart Section --}}
+{{#if bills}}
+    {{#each bills as |item|}}
+        {{> invoice id=item._id foods=item.foods date=item.createdAt total=item.total quantity=item.quantity table=item.table createdAt=item.createdAt }}
+    {{/each}}
+{{else}}
+    <strong>Nothing here</strong>
+{{/if}}

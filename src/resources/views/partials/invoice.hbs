@@ -3,10 +3,10 @@
         <div class="top">
             <div class="top-left">
                 <h1 class="main">Invoice</h1>
-                <span class="code">#63f6ffdf9d55d1eba6399364</span>
+                <span class="code">#{{this.id}}</span>
             </div>
             <div class="top-right">
-                <div class="date">Date: Thursday, February 23, 2023 at 12:55:43 PM GMT+7</div>
+                <div class="date">{{formatDate this.createdAt}}</div>
             </div>
         </div>
         <div class='table-bill'>
@@ -22,10 +22,10 @@
                     {{#each this.foods as |item|}}
                         <tr>
                             <td>{{increaseIndexByOne @index}}</td>
-                            <td>{{item.food.name}}</td>
-                            <td>{{formatCurrency item.food.price}}</td>
+                            <td>{{item.id.name}}</td>
+                            <td>{{formatCurrency item.id.price}}</td>
                             <td>{{item.quantity}}</td>
-                            <td class='cost'>{{formatCurrency (multiply item.food.price item.quantity)}}</td>
+                            <td class='cost'>{{formatCurrency (multiply item.id.price item.quantity)}}</td>
                         </tr>
                     {{/each}}
                 </tbody>
@@ -34,11 +34,16 @@
                         <td class='name'>Total</td>
                         <td colspan='2' class='number'>{{formatCurrency this.total}}</td>
                     </tr>
+                    <tr>
+                        <td>Tax</td>
+                        <td colspan='2'>50%</td>
+                    </tr>
                 </tfoot>
             </table>
         </div>
         <div class="actions">
             <button class="btn btn-main">Print</button>
+            <strong>Table: {{this.table}} !!!</strong>
         </div>
         <div class='note'>
             <p>Thank You for working with us!</p>
