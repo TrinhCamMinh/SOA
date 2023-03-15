@@ -49,6 +49,10 @@ const foodSchema = new Schema(
             type: Boolean,
             default: false,
         },
+        toggle: {
+            type: Boolean,
+            default: false,
+        },
     },
     { timestamps: true },
 );

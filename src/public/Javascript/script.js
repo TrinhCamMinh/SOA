@@ -290,6 +290,27 @@ $(document).ready(() => {
         });
     });
 
+    //* toggle food by chef
+    $("input[type='checkbox'][name='toggleCheckbox']").each((index, item) => {
+        $(item).change(function () {
+            const row = $(this).parents()[4];
+            const id = $(row).children()[0];
+
+            const updateToggleStatus = (id, toggle) => {
+                fetch(`http://localhost:3000/chef/toggle?id=${id}&&toggle=${toggle}`, {
+                    method: 'PUT',
+                    headers: { 'Content-Type': 'application/json' },
+                });
+            };
+
+            if ($(this).prop('checked')) {
+                updateToggleStatus($.trim($(id).text()), true);
+            } else {
+                updateToggleStatus($.trim($(id).text()), false);
+            }
+        });
+    });
+
     //* find bill base on a specific date
     $('.findDate').click(function () {
         const result = $('.date-picker').val().replace(/\//g, '-');

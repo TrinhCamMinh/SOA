@@ -10,6 +10,18 @@ const homePage = async (req, res) => {
     }
 };
 
+const toggleFood = async (req, res) => {
+    try {
+        const id = req.query.id;
+        const toggle = req.query.toggle;
+        const data = await foodModel.findByIdAndUpdate(id, { toggle }, { new: true });
+        res.status(200).json(data);
+    } catch (error) {
+        res.status(500).json(error.message);
+    }
+};
+
 module.exports = {
     homePage,
+    toggleFood,
 };

@@ -1,24 +1,51 @@
-<div class='foodCard'>
-    <div class='image'>
-        <img src={{image}} alt={{name}} loading='lazy' />
-    </div>
-    <div class='info'>
-        <div class='nameFood'>
-            <h2>{{name}}</h2>
+{{#if toggle}}
+    <div class='foodCard opacity-60'>
+        <div class='image'>
+            <img src={{image}} alt={{name}} loading='lazy' />
         </div>
-        <div class='description'>
-            <h4>{{description}}</h4>
-        </div>
-        <div class='price'>
-            <p>{{formatCurrency price}}</p>
-        </div>
-        <div class='circle'>
-            <div class='plus'></div>
-        </div>
-        {{#each ingredients as |ingredient|}}
-            <div class='ingredients' style='position: relative; top: 1px; opacity: 0;'>
-                <p class='ingredient'>{{ingredient.name}}-{{ingredient.quantity}}</p>
+        <div class='info'>
+            <div class='nameFood'>
+                <h2>{{name}}</h2>
             </div>
-        {{/each}}
+            <div class='description'>
+                <h4>{{description}}</h4>
+            </div>
+            <div class='price'>
+                <p>{{formatCurrency price}}</p>
+            </div>
+            <div class='circle'>
+                <div class='plus'></div>
+            </div>
+            {{#each ingredients as |ingredient|}}
+                <div class='ingredients' style='position: relative; top: 1px; opacity: 0;'>
+                    <p class='ingredient'>{{ingredient.name}}-{{ingredient.quantity}}</p>
+                </div>
+            {{/each}}
+        </div>
     </div>
-</div>
+{{else}}
+    <div class='foodCard'>
+        <div class='image'>
+            <img src={{image}} alt={{name}} loading='lazy' />
+        </div>
+        <div class='info'>
+            <div class='nameFood'>
+                <h2>{{name}}</h2>
+            </div>
+            <div class='description'>
+                <h4>{{description}}</h4>
+            </div>
+            <div class='price'>
+                <p>{{formatCurrency price}}</p>
+            </div>
+            <div class='circle'>
+                <div class='plus'></div>
+            </div>
+            {{#each ingredients as |ingredient|}}
+                <div class='ingredients' style='position: relative; top: 1px; opacity: 0;'>
+                    <p class='ingredient'>{{ingredient.name}}-{{ingredient.quantity}}</p>
+                </div>
+            {{/each}}
+        </div>
+    </div>
+{{/if}}
