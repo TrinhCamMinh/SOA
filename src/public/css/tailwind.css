@@ -1983,6 +1983,11 @@ video {
   background-color: rgb(39 39 42 / var(--tw-bg-opacity));
 }
 
+.bg-red-500 {
+  --tw-bg-opacity: 1;
+  background-color: rgb(239 68 68 / var(--tw-bg-opacity));
+}
+
 .bg-contain {
   background-size: contain;
 }
@@ -2611,6 +2616,10 @@ video {
 
 .opacity-\[\.54\] {
   opacity: .54;
+}
+
+.opacity-60 {
+  opacity: 0.6;
 }
 
 .shadow-\[0_10px_15px_-3px_rgba\(0\2c 0\2c 0\2c 0\.07\)\2c 0_4px_6px_-2px_rgba\(0\2c 0\2c 0\2c 0\.05\)\] {

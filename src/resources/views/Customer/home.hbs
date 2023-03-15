@@ -7,7 +7,7 @@
     {{!-- Menu --}}
     <div class="grid grid-cols-2 mr-auto pl-[50px] pt-[20px] ">
         {{#each data as |item|}}
-            {{> foodCard id=item._id name=item.name image=item.images price=item.price description=item.description ingredients=item.ingredients}}
+            {{> foodCard id=item._id name=item.name image=item.images price=item.price description=item.description ingredients=item.ingredients toggle=item.toggle}}
         {{/each}}
     </div>
     {{!-- Right sideBar --}}
